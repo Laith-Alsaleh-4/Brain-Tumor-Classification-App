@@ -1,0 +1,15 @@
+streamlit
+numpy
+Pillow
+matplotlib
+seaborn
+tensorflow
+tf-keras
+scikit-learn
+requests
+fpdf
+opencv-python-headless
+gdown
+
+
+

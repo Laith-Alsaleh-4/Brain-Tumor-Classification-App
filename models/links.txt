@@ -1,0 +1,12 @@
+# Pre-trained Models Directory
+
+Due to GitHub's file size limits, the large pre-trained `.keras` model files (ResNet50 and EfficientNetB0) are not hosted in this repository. 
+
+The main application (`app.py`) is configured to automatically download these models from a secure cloud storage upon first run. 
+
+However, if you wish to download them manually for local training or testing, you can access them via the links below:
+
+* **ResNet50 Model:** [Download Link](https://drive.google.com/file/d/1Rky8plM2F_c4bmH7kg5NJsV25axNtqB-/view?usp=sharing)
+* **EfficientNetB0 Model:** [Download Link](https://drive.google.com/file/d/1Yh7X9QnyXyjpaGNaQuv5EoPiEVCB7eWr/view?usp=drive_link)
+
+**Instructions:** Place the downloaded `.keras` files directly into this `models/` directory before running the application locally.
