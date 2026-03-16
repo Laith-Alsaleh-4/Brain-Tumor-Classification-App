@@ -161,14 +161,19 @@ download_models()
 
 
 # ===============================
-# MODELS LOADING
+# MODELS LOADING (Debug Mode)
 # ===============================
 @st.cache_resource(show_spinner=False)
 def load_models():
-    # Use relative paths to access the models folder
-    resnet = load_model("models/resnet_transfer_finetuned.keras", compile=False)
-    effnet = load_model("models/efficientnet_b0_finetuned.keras", compile=False)
-    return resnet, effnet
+    try:
+        # نحاول تحميل الموديلات مع إيقاف وضع الأمان
+        resnet = load_model("models/resnet_transfer_finetuned.keras", compile=False, safe_mode=False)
+        effnet = load_model("models/efficientnet_b0_finetuned.keras", compile=False, safe_mode=False)
+        return resnet, effnet
+    except Exception as e:
+        # إذا حدث خطأ، نلتقطه ونعرضه مباشرة على الشاشة لكشف السر!
+        st.error(f"🚨 الرسالة السرية المخفية هي: {str(e)}")
+        st.stop()
 
 
 with st.spinner("Initializing Medical Intelligence..."):
