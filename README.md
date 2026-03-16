@@ -1,7 +1,7 @@
 # 🧠 Brain AI Diagnostic System
 An advanced, end-to-end clinical decision support platform designed to classify brain tumors from MRI scans using Deep Learning, featuring Explainable AI (XAI) and automated clinical reporting.
 
-🔗 **Live Application:** [https://brain-tumor-classification-app-mfjdrzoaefkappjxhjm7cdp.streamlit.app/]
+🔗 **Live Application:** [Live Application](https://brain-tumor-classification-app-mfjdrzoaefkappjxhjm7cdp.streamlit.app)
 
 ## 🌟 Key Features
 * **High-Accuracy Classification:** Utilizes Transfer Learning (ResNet50 & EfficientNetB0) to classify MRI scans into four categories (Glioma, Meningioma, Pituitary, or No Tumor) with high accuracy.
