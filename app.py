@@ -3,8 +3,7 @@
 # app.py
 import os
 
-# إجبار TensorFlow على استخدام الإصدار القديم من Keras
-os.environ["TF_USE_LEGACY_KERAS"] = "1"
+
 
 import streamlit as st
 import numpy as np
@@ -13,9 +12,9 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
-import tf_keras as keras
-from tf_keras.models import load_model
-from tf_keras import Model, Input
+import keras
+from keras.models import load_model
+from keras import Model, Input
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 from datetime import datetime
 import requests
