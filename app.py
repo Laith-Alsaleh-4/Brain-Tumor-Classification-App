@@ -2,8 +2,8 @@
 
 # app.py
 import os
-
-
+# إجبار النظام على استخدام الجيل القديم الذي دربت عليه الموديل
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
 
 import streamlit as st
 import numpy as np
@@ -12,8 +12,9 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
-from tensorflow.keras.models import load_model
-from tensorflow.keras import Model, Input
+import tf_keras as keras
+from tf_keras.models import load_model
+from tf_keras import Model, Input
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 from datetime import datetime
 import requests
