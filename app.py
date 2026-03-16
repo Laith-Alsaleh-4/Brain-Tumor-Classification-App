@@ -12,9 +12,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
-import keras
-from keras.models import load_model
-from keras import Model, Input
+from tensorflow.keras.models import load_model
+from tensorflow.keras import Model, Input
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 from datetime import datetime
 import requests
@@ -167,8 +166,8 @@ download_models()
 @st.cache_resource(show_spinner=False)
 def load_models():
     # Use relative paths to access the models folder
-    resnet = load_model("models/resnet_transfer_finetuned.keras", compile=False , safe_mode=False)
-    effnet = load_model("models/efficientnet_b0_finetuned.keras", compile=False , safe_mode=False)
+    resnet = load_model("models/resnet_transfer_finetuned.keras", compile=False)
+    effnet = load_model("models/efficientnet_b0_finetuned.keras", compile=False)
     return resnet, effnet
 
 
