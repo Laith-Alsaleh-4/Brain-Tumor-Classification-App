@@ -49,7 +49,7 @@ def send_telegram_diagnostic_report(token, chat_id, patient_name, patient_id, di
     ]
     requests.post(url_media, data={'chat_id': chat_id, 'media': json.dumps(media)}, files=files)
 
-def create_pdf_report(patient_name, patient_id, diagnosis, confidence, original_path, blended_path):
+def create_pdf_report( patient_id,patient_name, diagnosis, confidence, original_path, blended_path):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", 'B', 20)
