@@ -167,8 +167,8 @@ download_models()
 @st.cache_resource(show_spinner=False)
 def load_models():
     # Use relative paths to access the models folder
-    resnet = load_model("models/resnet_transfer_finetuned.keras", compile=False)
-    effnet = load_model("models/efficientnet_b0_finetuned.keras", compile=False)
+    resnet = load_model("models/resnet_transfer_finetuned.keras", compile=False , safe_mode=False)
+    effnet = load_model("models/efficientnet_b0_finetuned.keras", compile=False , safe_mode=False)
     return resnet, effnet
 
 
