@@ -17,14 +17,13 @@ import requests
 from fpdf import FPDF
 import json
 
-# استيراد دوال قاعدة البيانات و Grad-CAM (تأكد أن هذا السطر موجود كما هو عندك)
+
 from database import init_db, save_patient_record, get_patient_by_id
 from utils.gradcam import make_gradcam_heatmap, resize_heatmap_to_image, blend_heatmap_with_image
 
 # ===============================
 # FUNCTIONS: Telegram & PDF
 # ===============================
-# (اترك دوال التليجرام والـ PDF كما هي لديك، لا تغير فيها شيئاً)
 
 def send_telegram_diagnostic_report(token, chat_id, patient_name, patient_id, diagnosis, confidence, original_path, blended_path):
     message = (
@@ -106,7 +105,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # ===============================
-# AUTO-DOWNLOAD MODELS FROM CLOUD (تحديث الروابط والصيغة)
+# AUTO-DOWNLOAD MODELS FROM CLOUD 
 # ===============================
 @st.cache_resource(show_spinner="Downloading Robust H5 Models... (This happens only once)")
 def download_models():
@@ -130,7 +129,7 @@ def download_models():
 download_models()
 
 # ===============================
-# MODELS LOADING (الكود الكلاسيكي المستقر)
+# MODELS LOADING 
 # ===============================
 @st.cache_resource(show_spinner=False)
 def load_models():
@@ -201,7 +200,7 @@ if uploaded_file is not None:
         ax_pie.pie(preds[0], labels=CLASSES, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("viridis"))
         st.pyplot(fig_pie)
 
-    # 3. Grad-CAM Generation (المكان الصحيح لتعريف blended_img)
+    # 3. Grad-CAM Generation 
     st.markdown("---")
     st.subheader("🔍 Tumor Localization (Explainable AI)")
 
@@ -223,16 +222,16 @@ if uploaded_file is not None:
     with c2:
         st.image(blended_img, caption="Grad-CAM Localization Map", use_container_width=True)
 
-        # 4. الحفظ والإرسال (بعد تعريف blended_img)
+        # 4.Save and send (after defining blended_img)
         blended_filename = f"blended_{patient_id if patient_id else 'temp'}.png"
         blended_save_path = OUTPUT_DIR / blended_filename
         Image.fromarray(blended_img).save(blended_save_path)
 
         if patient_id and patient_name:
-            # حفظ سجل المريض (نخزن مسار الصورة الأصلية أو الـ Grad-CAM حسب اختيارك)
+            #Save patient record (we store the original image path or the Grad-CAM as per your choice)
             save_patient_record(patient_id, patient_name, pred_class, confidence_score / 100, str(blended_save_path))
 
-        # واجهة التواصل السريع
+        # Fast communication interface
         st.markdown("---")
         st.subheader("🏥 Clinical Reporting & Communication")
         comm_col1, comm_col2 = st.columns([1, 1])
@@ -248,7 +247,7 @@ if uploaded_file is not None:
                         st.error("System configuration error: Telegram credentials not found.")
                         st.stop()
 
-                    # نرسل المسارين الآن (الأصلية ثم الـ Grad-CAM)
+                    # We are now sending the two paths (the original and then the Grad-CAM)
                     send_telegram_diagnostic_report(
                         MY_TOKEN, MY_CHAT_ID, patient_name, patient_id,
                         pred_class, confidence_score,
@@ -261,7 +260,7 @@ if uploaded_file is not None:
         with comm_col2:
             if st.button("📄 Generate Official PDF Report"):
                 if patient_id and patient_name:
-                    # نرسل المسارين للتقرير ليظهروا جنباً إلى جنب
+                    # We send the two paths to the report so they appear side by side.
                     pdf_path = create_pdf_report(
                         patient_name, patient_id, pred_class,
                         confidence_score, str(original_save_path), str(blended_save_path)
@@ -271,24 +270,7 @@ if uploaded_file is not None:
                 else:
                     st.error("Please provide Patient ID/Name in the sidebar.")
 
-    # 5. Evaluation Metrics
-    st.markdown("---")
-    st.subheader("📊 Statistical Performance")
-    ev_col1, ev_col2 = st.columns([1, 1])
-
-    with ev_col1:
-        # محاكاة بسيطة للتقرير
-        y_true = np.array([pred_idx] * 10)
-        y_pred = np.array([pred_idx] * 9 + [1 if pred_idx == 0 else 0])  # محاكاة خطأ بسيط
-        report = classification_report(y_true, y_pred, labels=list(range(4)), target_names=CLASSES, output_dict=True,
-                                       zero_division=0)
-        st.table(report)
-
-    with ev_col2:
-        cm = confusion_matrix(y_true, y_pred, labels=list(range(4)))
-        fig_cm, ax_cm = plt.subplots(figsize=(4, 3))
-        sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=CLASSES, yticklabels=CLASSES)
-        st.pyplot(fig_cm)
+   
 
 else:
     st.info("System Ready. Please upload a neuroimaging scan (MRI) via the sidebar to initiate analysis.")
