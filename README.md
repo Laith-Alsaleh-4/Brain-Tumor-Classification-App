@@ -9,6 +9,9 @@ An advanced, end-to-end clinical decision support platform designed to classify 
 * **Automated PDF Reports:** Instantly generates official, downloadable diagnostic reports containing patient details, confidence scores, and side-by-side comparative scans.
 * **Instant Specialist Alerts:** Integrates with the Telegram API to push immediate clinical alerts (including original and Grad-CAM images) directly to healthcare professionals' devices.
 
+## 📊 Dataset
+The models were trained and rigorously evaluated using the official **[BRISC 2025 Dataset](https://www.kaggle.com/datasets/briscdataset/brisc2025)** sourced from Kaggle. This comprehensive dataset ensures a robust and diverse collection of MRI neuroimaging data, enabling the system to achieve high generalization and accuracy in clinical scenarios.
+
 ## 🛠️ Technology Stack
 * **Deep Learning:** TensorFlow, Keras (ResNet50, EfficientNetB0)
 * **Computer Vision:** OpenCV, PIL, Grad-CAM Algorithm
